@@ -12,27 +12,18 @@
       --muted:#9a9a9a;
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family:'Poppins',sans-serif;
-      background:linear-gradient(180deg,#0d1b2a,#000);
-      color:var(--light);
-      line-height:1.6
-    }
+    body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0d1b2a,#000);color:var(--light);line-height:1.6}
     a{text-decoration:none;color:inherit}
 
-    /* ===== HEADER ===== */
     header{
       position:fixed;top:0;left:0;width:100%;
-      background:rgba(0,0,0,0.6);
-      backdrop-filter:blur(6px);
-      z-index:1000;
-      padding:15px 20px;
+      background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);
+      z-index:1000;padding:15px 20px;
       display:flex;align-items:center;justify-content:space-between
     }
     header .logo{font-size:20px;font-weight:700;color:var(--primary)}
     nav a{margin-left:20px;color:var(--light);font-weight:500}
 
-    /* ===== HERO ===== */
     .hero{
       height:100vh;position:relative;
       display:flex;flex-direction:column;
@@ -42,7 +33,7 @@
     .hero::before{
       content:"";position:absolute;
       top:0;left:0;width:100%;height:100%;
-      background:url('WhatsApp Image 2025-09-04 at 12.56.28_4894e823.jpg') center/cover no-repeat;
+      background:url('WhatsApp%20Image%202025-09-04%20at%2012.56.28_4894e823.jpg') center/cover no-repeat;
       opacity:0.25;z-index:-2
     }
     .hero::after{
@@ -51,28 +42,19 @@
       background:rgba(0,0,0,0.75);z-index:-1
     }
 
-    .typing-text {
-      font-size: 40px;
-      font-weight: bold;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 3px solid var(--primary);
-      width: 0;
-      animation: typing 4s steps(30, end) forwards, blink 0.7s step-end infinite;
-    }
-    @keyframes typing { from { width: 0; } to { width: 100%; } }
-    @keyframes blink { 50% { border-color: transparent; } }
+    .typing-text{font-size:40px;font-weight:bold;white-space:nowrap;overflow:hidden;border-right:3px solid var(--primary);width:0;animation:typing 4s steps(30,end) forwards,blink 0.7s step-end infinite}
+    @keyframes typing{from{width:0}to{width:100%}}
+    @keyframes blink{50%{border-color:transparent}}
 
-    .fade-subtitle {opacity: 0;animation: fadein 2.5s ease-in-out forwards;animation-delay: 2s;}
-    @keyframes fadein { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
+    .fade-subtitle{opacity:0;animation:fadein 2.5s ease-in-out forwards;animation-delay:2s}
+    @keyframes fadein{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-    .fade-btn {display:inline-block;margin-top:20px;opacity:0;transform:translateY(30px);animation: fadebtn 1.5s ease-out forwards;animation-delay:3s;}
-    @keyframes fadebtn { from { opacity:0;transform:translateY(30px) scale(0.95);} to{opacity:1;transform:translateY(0) scale(1);} }
+    .fade-btn{display:inline-block;margin-top:20px;opacity:0;transform:translateY(30px);animation:fadebtn 1.5s ease-out forwards;animation-delay:3s}
+    @keyframes fadebtn{from{opacity:0;transform:translateY(30px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)}}
 
     .btn{display:inline-block;background:var(--primary);padding:12px 24px;color:#fff;font-weight:600;border-radius:30px;transition:0.3s}
     .btn:hover{background:#0b6fc2;transform:translateY(-3px) scale(1.05);box-shadow:0 8px 20px rgba(30,144,255,0.3)}
 
-    /* ===== SECTIONS ===== */
     section{padding:80px 40px;max-width:1200px;margin:auto}
     section h2{text-align:center;font-size:32px;margin-bottom:40px;color:#fff}
 
@@ -98,7 +80,7 @@
 
     html{scroll-behavior:smooth}
 
-    /* ===== RESPONSIVE MOBILE ===== */
+    /* Responsive */
     @media (max-width:768px){
       header{flex-direction:column;align-items:flex-start;padding:10px 20px}
       nav{margin-top:10px}
@@ -140,15 +122,15 @@
     <h2>My Portfolio</h2>
     <div class="grid">
       <div class="card">
-        <img src="Screenshot 2025 09-20 010751.png" alt="Data Donor Darah C++">
+        <img src="Screenshot 2025-09-20_010751.png" alt="Data Donor Darah C++">
         <div class="overlay"><h3>Data Donor Darah Desa</h3><p>Program C++</p></div>
       </div>
       <div class="card">
-        <img src="Screenshot 2025-09-20 010621.png" alt="Form Input Data HTML">
+        <img src="Screenshot 2025-09-20_010621.png" alt="Form Input Data HTML">
         <div class="overlay"><h3>Form Input Data</h3><p>HTML sederhana</p></div>
       </div>
       <div class="card">
-        <img src="Screenshot 2025 09-20 005338.png" alt="Website Valentine HTML">
+        <img src="Screenshot 2025-09-20_005338.png" alt="Website Valentine HTML">
         <div class="overlay"><h3>Website Valentine</h3><p>HTML</p></div>
       </div>
       <div class="card">
@@ -162,4 +144,21 @@
     <img src="fotoprofil.jpg" alt="Foto Ivander Daniel Napitupulu">
     <div class="about-text">
       <h3>About Me</h3>
-      <p>Saya Ivander Daniel Napitupulu, seorang Software Engin
+      <p>Saya Ivander Daniel Napitupulu, seorang Software Engineer pemula dengan skills PHP (beginner), MySQL (beginner), dan HTML (beginner). Saat ini saya fokus mengembangkan kemampuan saya untuk membangun aplikasi web yang fungsional dan mudah digunakan.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Reach Me</h2>
+    <a href="mailto:ivanderdaniel79@gmail.com" class="btn">Email Me</a>
+    <div class="socials" style="margin-top:20px;">
+      <a href="https://www.linkedin.com/in/ivander-daniel-napitupulu-a02485384/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/ivanderdniel?igsh=aTN0bXQ0dHpnMXZu" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Ivander Daniel Napitupulu. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>
