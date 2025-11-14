@@ -14,52 +14,62 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0d1b2a,#000);color:var(--light);line-height:1.6}
     a{text-decoration:none;color:inherit}
-
-    header{
-      position:fixed;top:0;left:0;width:100%;
-      background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);
-      z-index:1000;padding:15px 20px;
-      display:flex;align-items:center;justify-content:space-between
-    }
-    header .logo{font-size:20px;font-weight:700;color:var(--primary)}
+    header{position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);z-index:1000;padding:20px 40px;display:flex;align-items:center;justify-content:space-between}
+    header .logo{font-size:22px;font-weight:700;color:var(--primary)}
     nav a{margin-left:20px;color:var(--light);font-weight:500}
 
     .hero{
-      height:100vh;position:relative;
-      display:flex;flex-direction:column;
-      align-items:center;justify-content:center;
-      text-align:center;padding:0 20px;overflow:hidden
+      height:100vh;
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:0 20px;
+      overflow:hidden;
     }
     .hero::before{
-      content:"";position:absolute;
+      content:"";
+      position:absolute;
       top:0;left:0;width:100%;height:100%;
-      background:url('WhatsApp%20Image%202025-09-04%20at%2012.56.28_4894e823.jpg') center/cover no-repeat;
-      opacity:0.25;z-index:-2
+      background:url('WhatsApp Image 2025-09-04 at 12.56.28_4894e823.jpg') center/cover no-repeat;
+      opacity:0.25;
+      z-index:-2;
     }
     .hero::after{
-      content:"";position:absolute;
+      content:"";
+      position:absolute;
       top:0;left:0;width:100%;height:100%;
-      background:rgba(0,0,0,0.75);z-index:-1
+      background:rgba(0,0,0,0.75);
+      z-index:-1;
     }
 
-    .typing-text{font-size:40px;font-weight:bold;white-space:nowrap;overflow:hidden;border-right:3px solid var(--primary);width:0;animation:typing 4s steps(30,end) forwards,blink 0.7s step-end infinite}
-    @keyframes typing{from{width:0}to{width:100%}}
-    @keyframes blink{50%{border-color:transparent}}
+    .typing-text {
+      font-size: 48px;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid var(--primary);
+      width: 0;
+      animation: typing 4s steps(30, end) forwards, blink 0.7s step-end infinite;
+    }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+    @keyframes blink { 50% { border-color: transparent; } }
 
-    .fade-subtitle{opacity:0;animation:fadein 2.5s ease-in-out forwards;animation-delay:2s}
-    @keyframes fadein{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .fade-subtitle {opacity: 0;animation: fadein 2.5s ease-in-out forwards;animation-delay: 2s;}
+    @keyframes fadein { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
 
-    .fade-btn{display:inline-block;margin-top:20px;opacity:0;transform:translateY(30px);animation:fadebtn 1.5s ease-out forwards;animation-delay:3s}
-    @keyframes fadebtn{from{opacity:0;transform:translateY(30px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+    .fade-btn {display:inline-block;margin-top:20px;opacity:0;transform:translateY(30px);animation: fadebtn 1.5s ease-out forwards;animation-delay:3s;}
+    @keyframes fadebtn { from { opacity:0;transform:translateY(30px) scale(0.95);} to{opacity:1;transform:translateY(0) scale(1);} }
 
     .btn{display:inline-block;background:var(--primary);padding:12px 24px;color:#fff;font-weight:600;border-radius:30px;transition:0.3s}
     .btn:hover{background:#0b6fc2;transform:translateY(-3px) scale(1.05);box-shadow:0 8px 20px rgba(30,144,255,0.3)}
 
     section{padding:80px 40px;max-width:1200px;margin:auto}
     section h2{text-align:center;font-size:32px;margin-bottom:40px;color:#fff}
-
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
-    .card{position:relative;overflow:hidden;border-radius:6px}
+    .card{position:relative;overflow:hidden;border-radius:6px;cursor:pointer}
     .card img{width:100%;height:100%;object-fit:cover;transition:0.5s}
     .card:hover img{transform:scale(1.1);opacity:0.8}
     .card .overlay{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:20px;transform:translateY(100%);transition:0.4s}
@@ -77,31 +87,63 @@
     .socials a:hover{color:#fff}
 
     footer{background:#000;padding:20px;text-align:center;color:var(--muted);font-size:14px}
-
     html{scroll-behavior:smooth}
 
-    /* Responsive */
-    @media (max-width:768px){
-      header{flex-direction:column;align-items:flex-start;padding:10px 20px}
-      nav{margin-top:10px}
-      nav a{margin:0 10px 0 0;display:inline-block}
-      .typing-text{font-size:28px}
-      section{padding:60px 20px}
-      section h2{font-size:26px}
-      .about{grid-template-columns:1fr;gap:20px;text-align:center}
-      .about img{max-width:80%;margin:auto}
-      .btn{padding:10px 20px;font-size:14px}
+
+    .modal {
+      display: none; 
+      position: fixed;
+      z-index: 2000;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(4px);
+      overflow-y: auto;
+      padding: 40px 20px;
+      justify-content: center;
+      align-items: flex-start;
     }
-    @media (max-width:480px){
-      .typing-text{font-size:22px}
-      .fade-subtitle{font-size:14px}
-      .btn{padding:8px 16px;font-size:13px}
-      nav a{font-size:14px}
+
+    .modal-content {
+      background: #111;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      color: #fff;
+      position: relative;
+      animation: zoom 0.28s ease-out;
+      box-shadow: 0 0 25px rgba(255,255,255,0.1);
+    }
+
+    .modal-content img {
+      width: 100%;
+      height: auto;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      color: #fff;
+      font-size: 32px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @keyframes zoom {
+      from { transform: scale(0.75); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
     }
   </style>
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
+
   <header>
     <div class="logo">Ivander Daniel</div>
     <nav>
@@ -121,27 +163,51 @@
   <section id="portfolio">
     <h2>My Portfolio</h2>
     <div class="grid">
-      <div class="card">
-        <img src="Screenshot 2025-09-20 010751.png" alt="Data Donor Darah C++">
+      <div class="card" onclick="openModal(1)">
+        <img src="Screenshot 2025-09-20 010751.png">
         <div class="overlay"><h3>Data Donor Darah Desa</h3><p>Program C++</p></div>
       </div>
-      <div class="card">
-        <img src="Screenshot 2025-09-20 010621.png" alt="Form Input Data HTML">
+
+      <div class="card" onclick="openModal(2)">
+        <img src="Screenshot 2025-09-20 010621.png">
         <div class="overlay"><h3>Form Input Data</h3><p>HTML sederhana</p></div>
       </div>
-      <div class="card">
-        <img src="Screenshot 2025-09-20 005338.png" alt="Website Valentine HTML">
+
+      <div class="card" onclick="openModal(3)">
+        <img src="Screenshot 2025-09-20 005338.png">
         <div class="overlay"><h3>Website Valentine</h3><p>HTML</p></div>
       </div>
-      <div class="card">
-        <img src="WhatsApp Image 2025-09-20 at 00.50.41_b5c5b5db.jpg" alt="Aplikasi Peminjaman Buku PHP MySQL">
-        <div class="overlay"><h3>Aplikasi Peminjaman & Pengembalian Buku</h3><p>PHP + MySQL</p></div>
+
+      <div class="card" onclick="openModal(4)">
+        <img src="WhatsApp Image 2025-09-20 at 00.50.41_b5c5b5db.jpg">
+        <div class="overlay"><h3>Aplikasi Peminjaman Buku</h3><p>PHP + MySQL</p></div>
       </div>
+
+      <div class="card" onclick="openModal(5)">
+        <img src="WhatsApp Image 2025-09-20 at 00.50.41_b5c5b5db.jpg">
+        <div class="overlay"><h3>Program Portal Mahasiswa</h3><p>Python</p></div>
+      </div>
+
+      <div class="card" onclick="openModal(6)">
+        <img src="WhatsApp Image 2025-09-20 at 00.50.41_b5c5b5db.jpg">
+        <div class="overlay"><h3>UI/UX Prototype Duolingo</h3><p>Figma</p></div>
+      </div>
+
+      <div class="card" onclick="openModal(7)">
+        <img src="WhatsApp Image 2025-09-20 at 00.50.41_b5c5b5db.jpg">
+        <div class="overlay"><h3>UI/UX Prototype ToiletKu</h3><p>Figma</p></div>
+      </div>
+
+      <div class="card" onclick="openModal(8)">
+        <img src="WhatsApp Image 2025-09-20 at 00.50.41_b5c5b5db.jpg">
+        <div class="overlay"><h3>UI/UX Prototype PathAI</h3><p>Figma</p></div>
+      </div>
+
     </div>
   </section>
 
   <section id="about" class="about">
-    <img src="fotoprofil.jpg" alt="Foto Ivander Daniel Napitupulu">
+    <img src="fotoprofil.jpg">
     <div class="about-text">
       <h3>About Me</h3>
       <p>Saya Ivander Daniel Napitupulu, seorang Software Engineer pemula dengan skills PHP, MySQL, dan HTML. Saat ini saya fokus mengembangkan kemampuan saya untuk membangun aplikasi web yang fungsional dan mudah digunakan.</p>
@@ -153,16 +219,101 @@
     <a href="mailto:ivanderdaniel79@gmail.com" class="btn">Email Me</a>
     <div class="socials" style="margin-top:20px;">
       <a href="https://www.linkedin.com/in/ivander-daniel-napitupulu-a02485384/" target="_blank"><i class="fab fa-linkedin"></i></a>
-      <a href="https://www.instagram.com/ivanderdniel?igsh=aTN0bXQ0dHpnMXZu" target="_blank"><i class="fab fa-instagram"></i></a>
     </div>
   </section>
 
   <footer>
     <p>© 2025 Ivander Daniel Napitupulu. All Rights Reserved.</p>
   </footer>
+
+  <div class="modal" id="modal1">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal(1)">&times;</span>
+      <img src="Screenshot 2025-09-20 010751.png">
+      <h3>Data Donor Darah Desa</h3>
+      <p>Program C++ untuk pendataan donor darah tingkat desa.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal2">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal(2)">&times;</span>
+      <img src="Screenshot 2025-09-20 010621.png">
+      <h3>Form Input Data</h3>
+      <p>HTML form sederhana untuk input data.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal3">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal(3)">&times;</span>
+      <img src="Screenshot 2025-09-20 005338.png">
+      <h3>Website Valentine</h3>
+      <p>Website HTML bertema Valentine.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal4">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal(4)">&times;</span>
+      <img src="WhatsApp Image 2025-09-20 at 00.50.41_b5c5b5db.jpg">
+      <h3>Aplikasi Peminjaman Buku</h3>
+      <p>Aplikasi PHP + MySQL untuk manajemen peminjaman buku.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal5">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal(5)">&times;</span>
+      <img src="WhatsApp Image 2025-09-20 at 00.50.41_b5c5b5db.jpg">
+      <h3>Program Portal Mahasiswa</h3>
+      <p>Program Python untuk portal akademik mahasiswa.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal6">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal(6)">&times;</span>
+      <img src="WhatsApp Image 2025-09-20 at 00.50.41_b5c5b5db.jpg">
+      <h3>UI/UX Prototype Duolingo</h3>
+      <p>Redesain UI/UX aplikasi Duolingo menggunakan Figma.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal7">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal(7)">&times;</span>
+      <img src="WhatsApp Image 2025-09-20 at 00.50.41_b5c5b5db.jpg">
+      <h3>UI/UX ToiletKu</h3>
+      <p>Prototype aplikasi pencarian toilet umum.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal8">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal(8)">&times;</span>
+      <img src="WhatsApp Image 2025-09-20 at 00.50.41_b5c5b5db.jpg">
+      <h3>UI/UX PathAI</h3>
+      <p>Desain AI Navigator kampus.</p>
+    </div>
+  </div>
+
+
+  <script>
+    function openModal(id){
+      document.getElementById("modal" + id).style.display = "flex";
+    }
+
+    function closeModal(id){
+      document.getElementById("modal" + id).style.display = "none";
+    }
+
+    window.onclick = function(e){
+      document.querySelectorAll(".modal").forEach(m => {
+        if(e.target === m){ m.style.display = "none"; }
+      });
+    };
+  </script>
+
 </body>
 </html>
-
-
-
-
