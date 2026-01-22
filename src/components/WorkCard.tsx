@@ -4,7 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 export interface Work {
   id: string;
   title: string;
-  category: 'web' | 'uiux' | 'graphic' | 'program';
+  category: 'web' | 'uiux' | 'graphic' | 'program' | 'design';
   description: string;
   image: string;
   tags: string[];
@@ -26,7 +26,9 @@ const WorkCard = ({ work, onClick, index }: WorkCardProps) => {
       ? 'UI/UX'
       : work.category === 'program'
         ? 'Program'
-        : 'Graphic';
+        : work.category === 'design'
+          ? 'Design'
+          : 'Graphic';
 
   return (
     <motion.article

@@ -8,6 +8,7 @@ const categories = [
   { id: 'web', label: 'Web' },
   { id: 'uiux', label: 'UI/UX' },
   { id: 'program', label: 'Program' },
+  { id: 'design', label: 'Design' }
 ];
 
 const works: Work[] = [
@@ -100,6 +101,15 @@ const works: Work[] = [
     tags: ['HTML', 'CSS', 'JavaScript', 'React','Vite','Typescript'],
     projectUrl: 'https://fisikapostulat.vercel.app',
   },
+  {
+    id: '11',
+    title: 'Sport Poster MU vs City',
+    category: 'design',
+    description: 'A poster design for a sports match between Manchester United and Manchester City, featuring dynamic typography and bold color schemes to enhance visual appeal.',
+    image: '/belajar1.png',
+    tags: ['Adobe Photoshop'],
+    projectUrl: 'https://www.instagram.com/p/DTxpwmQk2o7/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+  }
 ];
 
 
