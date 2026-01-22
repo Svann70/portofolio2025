@@ -100,7 +100,7 @@ const WorkModal = ({ work, isOpen, onClose }: WorkModalProps) => {
 
                   {/* Tags */}
                   <div>
-                    <h4 className="text-sm font-medium text-foreground mb-2 sm:mb-3">Technologies</h4>
+                    <h4 className="text-sm font-medium text-foreground mb-2 sm:mb-3">Tags</h4>
                     <div className="flex flex-wrap gap-2">
                       {work.tags.map((tag) => (
                         <span

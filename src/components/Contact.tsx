@@ -102,7 +102,7 @@ const Contact = () => {
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-colors flex-shrink-0">
                   <Mail className="group-hover:text-primary transition-colors w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-                <span className="text-sm sm:text-base">svann70@gmail.com</span>
+                <span className="text-sm sm:text-base">ivanderdaniel79@gmail.com</span>
               </motion.a>
 
               <motion.div
