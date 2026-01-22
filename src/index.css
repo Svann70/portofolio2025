@@ -76,7 +76,12 @@
 
 @layer components {
   .glass-card {
-    @apply bg-card/60 backdrop-blur-xl border border-white/[0.08] rounded-2xl;
+    /* Optimized for mobile: higher opacity, lower blur */
+    @apply bg-card/80 backdrop-blur-md border border-white/[0.08] rounded-2xl;
+    
+    /* Desktop: restore original glass effect */
+    @apply md:bg-card/60 md:backdrop-blur-xl;
+    
     box-shadow: var(--shadow-glass);
   }
 

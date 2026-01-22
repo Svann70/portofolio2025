@@ -29,8 +29,8 @@ const Hero = () => {
     <section className="relative min-h-[100dvh] flex items-center overflow-hidden hero-gradient-bg safe-area-inset-top">
       {/* Ambient light effect - reduced on mobile for performance */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-1/4 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] rounded-full bg-primary/5 blur-[80px] sm:blur-[120px]" />
-        <div className="absolute bottom-1/4 left-1/4 w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] rounded-full bg-blue-500/3 blur-[60px] sm:blur-[100px]" />
+        <div className="absolute top-1/4 right-1/4 w-[200px] sm:w-[600px] h-[200px] sm:h-[600px] rounded-full bg-primary/5 blur-[40px] sm:blur-[120px]" />
+        <div className="absolute bottom-1/4 left-1/4 w-[150px] sm:w-[400px] h-[150px] sm:h-[400px] rounded-full bg-blue-500/3 blur-[30px] sm:blur-[100px]" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 pt-20 sm:pt-24 pb-12 sm:pb-16">
