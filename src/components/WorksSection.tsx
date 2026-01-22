@@ -109,6 +109,15 @@ const works: Work[] = [
     image: '/belajar1.png',
     tags: ['Adobe Photoshop'],
     projectUrl: 'https://www.instagram.com/p/DTxpwmQk2o7/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+  },
+  {
+    id: '12',
+    title: 'Sport Poster Lamine Yamal',
+    category: 'design',
+    description: 'A poster design for a sports player Lamine Yamal, featuring dynamic typography and bold color schemes to enhance visual appeal.',
+    image: '/LamineYamalBelajar.png',
+    tags: ['Adobe Photoshop'],
+    projectUrl: 'https://www.instagram.com/p/DTzU6N0E2HK/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
   }
 ];
 
