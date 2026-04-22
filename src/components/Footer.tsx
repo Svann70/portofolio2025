@@ -4,33 +4,55 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-8 sm:py-12 border-t border-white/[0.06] safe-area-inset-bottom">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+    <footer className="relative safe-area-inset-bottom" style={{ background: 'var(--ink)' }}>
+      <div className="px-6 sm:px-8 lg:px-12 xl:px-16 py-16 sm:py-20">
+        {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6"
+          className="mb-16"
         >
-          {/* Logo */}
-          <a href="#" className="text-lg font-semibold tracking-tight text-foreground">
-            ID<span className="text-primary">.</span>
-          </a>
-
-          {/* Copyright */}
-          <p className="text-xs sm:text-sm text-muted-foreground text-center order-3 sm:order-2">
-            © {currentYear} Ivander Daniel Napitupulu
+          <p className="font-serif italic text-3xl sm:text-4xl lg:text-5xl leading-tight" style={{ color: 'var(--paper)', letterSpacing: '-0.02em' }}>
+            Let's create something<br />
+            <span className="font-sans font-light not-italic" style={{ color: 'var(--gray-3)' }}>
+              meaningful together<span style={{ color: 'var(--accent)' }}>.</span>
+            </span>
           </p>
-
-          {/* Back to top */}
-          <a
-            href="#"
-            className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors order-2 sm:order-3 touch-manipulation py-2"
+          <motion.a
+            href="mailto:ivanderdaniel79@gmail.com"
+            className="inline-flex items-center gap-2 mt-8 px-6 py-3 rounded-full text-sm font-mono transition-all duration-300"
+            style={{
+              background: 'rgba(246, 243, 238, 0.08)',
+              color: 'var(--paper)',
+              border: '1px solid rgba(246, 243, 238, 0.12)',
+            }}
+            whileHover={{ y: -2, background: 'rgba(246, 243, 238, 0.14)' }}
           >
-            Back to top ↑
-          </a>
+            ivanderdaniel79@gmail.com
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M1 13L13 1M13 1H4M13 1V10" />
+            </svg>
+          </motion.a>
         </motion.div>
+
+        {/* Bottom */}
+        <div className="pt-8 border-t" style={{ borderColor: 'rgba(246, 243, 238, 0.08)' }}>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <p className="font-mono text-[0.6rem] tracking-[0.1em]" style={{ color: 'rgba(246, 243, 238, 0.25)' }}>
+              © {currentYear} Ivander Daniel Napitupulu
+            </p>
+
+            <motion.a
+              href="#"
+              className="font-mono text-xs flex items-center gap-1"
+              style={{ color: 'rgba(246, 243, 238, 0.3)' }}
+              whileHover={{ y: -1, color: 'rgba(246, 243, 238, 0.6)' }}
+            >
+              Back to top ↑
+            </motion.a>
+          </div>
+        </div>
       </div>
     </footer>
   );

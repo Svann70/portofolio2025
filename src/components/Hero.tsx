@@ -1,171 +1,374 @@
-import { motion } from 'framer-motion';
-import { ArrowDown, Sparkles } from 'lucide-react';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import LiquidEther from './LiquidEther';
 
 const Hero = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.3,
-      },
-    },
-  };
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  });
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: 'easeOut' as const,
-      },
-    },
-  };
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
+  // Mouse tracking
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth spring physics for each layer (different stiffness = different parallax speed)
+  const springConfig = { damping: 40, stiffness: 90 };
+  const springConfigSlow = { damping: 50, stiffness: 60 };
+  const springConfigFast = { damping: 30, stiffness: 120 };
+
+  const x1 = useSpring(useTransform(mouseX, [0, 1], [-25, 25]), springConfig);
+  const y1Mouse = useSpring(useTransform(mouseY, [0, 1], [-20, 20]), springConfig);
+  const x2 = useSpring(useTransform(mouseX, [0, 1], [30, -30]), springConfigSlow);
+  const y2 = useSpring(useTransform(mouseY, [0, 1], [25, -25]), springConfigSlow);
+  const x3 = useSpring(useTransform(mouseX, [0, 1], [-15, 15]), springConfigFast);
+  const y3 = useSpring(useTransform(mouseY, [0, 1], [-12, 12]), springConfigFast);
+  const x4 = useSpring(useTransform(mouseX, [0, 1], [18, -18]), springConfig);
+  const y4 = useSpring(useTransform(mouseY, [0, 1], [15, -15]), springConfig);
+  const x5 = useSpring(useTransform(mouseX, [0, 1], [-10, 10]), springConfigSlow);
+  const y5 = useSpring(useTransform(mouseY, [0, 1], [-8, 8]), springConfigSlow);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      mouseX.set(clientX / innerWidth);
+      mouseY.set(clientY / innerHeight);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
 
   return (
-    <section className="relative min-h-[100dvh] flex items-center overflow-hidden hero-gradient-bg safe-area-inset-top">
-      {/* Ambient light effect - reduced on mobile for performance */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-1/4 w-[200px] sm:w-[600px] h-[200px] sm:h-[600px] rounded-full bg-primary/5 blur-[40px] sm:blur-[120px]" />
-        <div className="absolute bottom-1/4 left-1/4 w-[150px] sm:w-[400px] h-[150px] sm:h-[400px] rounded-full bg-blue-500/3 blur-[30px] sm:blur-[100px]" />
+    <section
+      ref={containerRef}
+      className="relative min-h-[100dvh] flex items-end overflow-hidden"
+      style={{ background: 'var(--paper)' }}
+    >
+      {/* ==========================================
+          LIQUID ETHER BACKGROUND
+          ========================================== */}
+      <div className="absolute inset-0 z-0 opacity-30">
+        <LiquidEther
+          colors={['#c85a3a', '#e8c4a0', '#d4a574']}
+          mouseForce={15}
+          cursorSize={120}
+          resolution={0.4}
+          isViscous={false}
+          viscous={30}
+          iterationsViscous={32}
+          iterationsPoisson={32}
+          isBounce={false}
+          autoDemo={true}
+          autoSpeed={0.3}
+          autoIntensity={1.8}
+          takeoverDuration={0.3}
+          autoResumeDelay={2000}
+          autoRampDuration={0.8}
+          style={{ width: '100%', height: '100%' }}
+        />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12 pt-20 sm:pt-24 pb-12 sm:pb-16">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-8 items-center">
-          {/* Left Content */}
-          <motion.div
-            className="lg:col-span-7 space-y-6 sm:space-y-8"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <motion.div variants={itemVariants} className="flex items-center gap-3">
-              <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 text-xs font-medium text-primary bg-primary/10 rounded-full border border-primary/20">
-                <Sparkles size={12} />
-                Available for opportunities
-              </span>
-            </motion.div>
+      {/* ==========================================
+          ROMAN DECORATIVE LINES — mouse-reactive
+          ========================================== */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-[1]">
 
-            <motion.h1
-              variants={itemVariants}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-semibold leading-[1.1] tracking-tight"
-            >
-              <span className="text-gradient-subtle">Ivander Daniel</span>
-              <br />
-              <span className="text-foreground">Napitupulu</span>
-            </motion.h1>
-
-            <motion.p
-              variants={itemVariants}
-              className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed"
-            >
-              Software Engineer{' '}
-              <span className="text-foreground/60">|</span>{' '}
-              <span className="text-foreground/80">UI/UX Designer</span>{' '}
-            </motion.p>
-
-            <motion.p
-              variants={itemVariants}
-              className="text-sm sm:text-base text-muted-foreground max-w-lg"
-            >
-              Building thoughtful digital experiences at the intersection of engineering precision and design craft.
-            </motion.p>
-
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4">
-              <a href="#works" className="btn-primary w-full sm:w-auto justify-center">
-                View My Work
-                <ArrowDown size={18} />
-              </a>
-              <a href="#contact" className="btn-secondary w-full sm:w-auto justify-center">
-                Get in Touch
-              </a>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Visual - Hidden on mobile and tablet */}
-          <motion.div
-            className="lg:col-span-5 hidden lg:block"
-            initial={{ opacity: 0, scale: 0.9, x: 50 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="relative aspect-square">
-              {/* Abstract geometric composition */}
-              <div className="absolute inset-0">
-                <motion.div
-                  className="absolute top-0 right-0 w-3/4 h-3/4 rounded-3xl glass-card flex items-center justify-center overflow-hidden"
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  {/* Person with Laptop Icon - Top Right */}
-                  <svg viewBox="0 0 24 24" className="w-1/2 h-1/2 text-foreground/20 fill-current opacity-30">
-                    <path d="M20 18v-1c0-2.21-3.58-4-8-4s-8 1.79-8 4v1h16zm-8-6c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm9 8l1 2H2l1-2h18z" />
-                  </svg>
-                </motion.div>
-
-                <motion.div
-                  className="absolute bottom-0 left-0 w-2/3 h-2/3 rounded-3xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center overflow-hidden"
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                >
-                  {/* Python Icon - Bottom Left */}
-                  <svg viewBox="0 0 128 128" className="w-1/2 h-1/2 text-primary/40 fill-current opacity-40">
-                    <path d="M63.6 15.6C44.3 15.6 37 24.3 37 36.3V44h26.5v3.4H24.8C12 47.4 5.7 54.3 5.7 66.8v16.7c0 12.3 5.7 18 19 18h9.8v-3.7c0-12 5.5-17.7 17.7-17.7h18.2c6.4 0 9.2-2.7 9.2-9.2V50.6c0-6.4-2.8-9.2-9.2-9.2h-18v-3c0-6 2.8-8.8 8.8-8.8h19.8c6 0 8.8 2.8 8.8 8.8v2.8h15V36.3c0-11.8-6.1-20.7-27.1-20.7zM45.5 28.1c2.4 0 4.3 2 4.3 4.3s-2 4.3-4.3 4.3c-2.4 0-4.3-2-4.3-4.3s2-4.3 4.3-4.3zm20.8 35.8H48.1c-6.4 0-9.2 2.7-9.2 9.2V93c0 6.4 2.8 9.2 9.2 9.2h18v3c0 6-2.8 8.8-8.8 8.8H37.5c-6 0-8.8-2.8-8.8-8.8v-2.8H13.7v4c0 11.8 6.1 20.7 27.2 20.7 19.3 0 26.5-8.8 26.5-20.7V99.7H40.8v-3.4h38.7c12.7 0 19-6.9 19-19.5V60.2c0-12.3-5.7-18-19-18H66.3v3.7c0 12-5.5 17.8-17.8 17.8h-.1zM84.4 91.3c2.4 0 4.3 2 4.3 4.3s-2 4.3-4.3 4.3c-2.4 0-4.3-2-4.3-4.3s1.9-4.3 4.3-4.3z" />
-                  </svg>
-                </motion.div>
-
-                <motion.div
-                  className="absolute top-1/4 left-1/4 w-1/2 h-1/2 rounded-2xl bg-gradient-to-br from-secondary to-muted border border-white/10 flex items-center justify-center overflow-hidden"
-                  animate={{ rotate: [0, 5, 0, -5, 0] }}
-                  transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  {/* Figma Icon - Center */}
-                  <svg viewBox="0 0 24 24" className="w-1/2 h-1/2 text-foreground fill-current opacity-20">
-                    <path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z M12 2h3.5A3.5 3.5 0 0 1 19 5.5 3.5 3.5 0 0 1 15.5 9H12V2z M12 9h3.5a3.5 3.5 0 1 1 0 7H12V9z M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z" />
-                  </svg>
-                </motion.div>
-              </div>
-
-              {/* Floating elements */}
-              <motion.div
-                className="absolute top-10 right-10 w-4 h-4 rounded-full bg-primary"
-                animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              />
-              <motion.div
-                className="absolute bottom-20 right-20 w-2 h-2 rounded-full bg-foreground/50"
-                animate={{ scale: [1, 1.5, 1] }}
-                transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-              />
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Scroll indicator - Hidden on mobile */}
-      <motion.div
-        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 hidden sm:block"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-      >
+        {/* Roman I — serifed vertical stroke, upper right */}
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2"
+          style={{ x: x1, y: y1Mouse }}
+          className="absolute top-[10%] right-[14%]"
+        >
+          <motion.svg
+            viewBox="0 0 20 80"
+            className="w-[14px] h-[56px] sm:w-[18px] sm:h-[72px]"
+            animate={{ opacity: [0.2, 0.45, 0.2] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <line x1="4" y1="0" x2="16" y2="0" stroke="var(--gray-4)" strokeWidth="1.5" />
+            <line x1="10" y1="0" x2="10" y2="80" stroke="var(--gray-4)" strokeWidth="1.2" />
+            <line x1="4" y1="80" x2="16" y2="80" stroke="var(--gray-4)" strokeWidth="1.5" />
+          </motion.svg>
+        </motion.div>
+
+        {/* Roman V — open chevron, mid right */}
+        <motion.div
+          style={{ x: x2, y: y2 }}
+          className="absolute top-[35%] right-[7%]"
+        >
+          <motion.svg
+            viewBox="0 0 40 36"
+            className="w-[32px] h-[28px] sm:w-[40px] sm:h-[36px]"
+            fill="none"
+            stroke="var(--gray-4)"
+            strokeWidth="1.2"
+            animate={{ y: [0, -6, 0], opacity: [0.2, 0.4, 0.2] }}
+            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            {/* Serifs at top */}
+            <line x1="0" y1="0" x2="6" y2="0" />
+            <line x1="34" y1="0" x2="40" y2="0" />
+            {/* V shape */}
+            <line x1="3" y1="0" x2="20" y2="36" />
+            <line x1="37" y1="0" x2="20" y2="36" />
+          </motion.svg>
+        </motion.div>
+
+        {/* Roman X — crossed strokes, top center-right */}
+        <motion.div
+          style={{ x: x3, y: y3 }}
+          className="absolute top-[18%] right-[32%]"
+        >
+          <motion.svg
+            viewBox="0 0 36 44"
+            className="w-[26px] h-[32px] sm:w-[32px] sm:h-[40px]"
+            fill="none"
+            stroke="var(--accent)"
+            strokeWidth="1"
+            strokeOpacity="0.35"
+            animate={{ rotate: [0, 5, 0, -5, 0] }}
+            transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            {/* Top serifs */}
+            <line x1="0" y1="0" x2="8" y2="0" />
+            <line x1="28" y1="0" x2="36" y2="0" />
+            {/* Bottom serifs */}
+            <line x1="0" y1="44" x2="8" y2="44" />
+            <line x1="28" y1="44" x2="36" y2="44" />
+            {/* X strokes */}
+            <line x1="4" y1="0" x2="32" y2="44" />
+            <line x1="32" y1="0" x2="4" y2="44" />
+          </motion.svg>
+        </motion.div>
+
+        {/* Long serifed horizontal rule — upper area */}
+        <motion.div
+          style={{ x: x4, y: y4 }}
+          className="absolute top-[28%] right-[18%] origin-center"
+        >
+          <motion.svg
+            viewBox="0 0 200 12"
+            className="w-[140px] h-[8px] sm:w-[200px] sm:h-[12px]"
+            fill="none"
+            stroke="var(--gray-5)"
+            strokeWidth="1"
+            animate={{ rotate: [20, 25, 20], opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            {/* Left serif */}
+            <line x1="0" y1="2" x2="0" y2="10" />
+            {/* Horizontal stroke */}
+            <line x1="0" y1="6" x2="200" y2="6" />
+            {/* Right serif */}
+            <line x1="200" y1="2" x2="200" y2="10" />
+          </motion.svg>
+        </motion.div>
+
+        {/* Roman II — double column, mid area */}
+        <motion.div
+          style={{ x: x5, y: y3 }}
+          className="absolute top-[48%] right-[28%]"
+        >
+          <motion.svg
+            viewBox="0 0 28 60"
+            className="w-[20px] h-[42px] sm:w-[26px] sm:h-[56px]"
+            fill="none"
+            stroke="var(--gray-4)"
+            strokeWidth="1"
+            animate={{ opacity: [0.15, 0.4, 0.15] }}
+            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            {/* Top serifs */}
+            <line x1="1" y1="0" x2="12" y2="0" />
+            <line x1="16" y1="0" x2="27" y2="0" />
+            {/* Two columns */}
+            <line x1="7" y1="0" x2="7" y2="60" />
+            <line x1="21" y1="0" x2="21" y2="60" />
+            {/* Bottom serifs */}
+            <line x1="1" y1="60" x2="12" y2="60" />
+            <line x1="16" y1="60" x2="27" y2="60" />
+          </motion.svg>
+        </motion.div>
+
+        {/* Laurel dot arc — upper mid */}
+        <motion.div
+          style={{ x: x1, y: y2 }}
+          className="absolute top-[14%] right-[24%]"
+        >
+          {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+            <motion.div
+              key={i}
+              className="absolute w-[3px] h-[3px] rounded-full"
+              style={{
+                background: 'var(--gray-4)',
+                left: `${Math.cos((i * Math.PI) / 6 - Math.PI / 3) * 32}px`,
+                top: `${Math.sin((i * Math.PI) / 6 - Math.PI / 3) * 32 + 32}px`,
+              }}
+              animate={{ opacity: [0.1, 0.45, 0.1] }}
+              transition={{ duration: 4, repeat: Infinity, delay: i * 0.25, ease: 'easeInOut' }}
+            />
+          ))}
+        </motion.div>
+
+        {/* Half-arc column — right side */}
+        <motion.div
+          style={{ x: x2, y: y4 }}
+          className="absolute top-[55%] right-[4%] w-[140px] h-[140px] sm:w-[200px] sm:h-[200px]"
         >
           <motion.div
-            animate={{ height: ['20%', '40%', '20%'] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-0.5 bg-muted-foreground/50 rounded-full"
+            className="w-full h-full rounded-full"
+            style={{
+              border: '1px solid var(--gray-5)',
+              borderColor: 'transparent transparent var(--gray-5) transparent',
+            }}
+            animate={{ rotate: [0, -20, 0] }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
           />
         </motion.div>
+
+        {/* Accent dot — sentinel */}
+        <motion.div
+          style={{ x: x3, y: y4 }}
+          className="absolute top-[42%] right-[12%]"
+        >
+          <motion.div
+            className="w-2 h-2 rounded-full"
+            style={{ background: 'var(--accent)' }}
+            animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0.8, 0.4] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </motion.div>
+
+        {/* Short serifed vertical — lower right */}
+        <motion.div
+          style={{ x: x5, y: y5 }}
+          className="absolute bottom-[25%] right-[18%]"
+        >
+          <motion.svg
+            viewBox="0 0 16 40"
+            className="w-[12px] h-[30px] sm:w-[14px] sm:h-[36px]"
+            fill="none"
+            stroke="var(--gray-5)"
+            strokeWidth="1"
+            animate={{ opacity: [0.2, 0.5, 0.2] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+          >
+            <line x1="2" y1="0" x2="14" y2="0" />
+            <line x1="8" y1="0" x2="8" y2="40" />
+            <line x1="2" y1="40" x2="14" y2="40" />
+          </motion.svg>
+        </motion.div>
+
+        {/* Accent dash — bottom */}
+        <motion.div
+          style={{ x: x4, y: y3 }}
+          className="absolute bottom-[32%] right-[6%]"
+        >
+          <motion.svg
+            viewBox="0 0 40 8"
+            className="w-[30px] h-[6px] sm:w-[36px] sm:h-[7px]"
+            fill="none"
+            stroke="var(--accent)"
+            strokeWidth="1.5"
+            strokeOpacity="0.35"
+            animate={{ scaleX: [0.5, 1, 0.5] }}
+            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+          >
+            <line x1="0" y1="4" x2="40" y2="4" />
+            <line x1="0" y1="1" x2="0" y2="7" />
+            <line x1="40" y1="1" x2="40" y2="7" />
+          </motion.svg>
+        </motion.div>
+      </div>
+
+      {/* ==========================================
+          MAIN TEXT CONTENT
+          ========================================== */}
+      <motion.div
+        className="w-full px-6 sm:px-8 lg:px-12 xl:px-16 pb-12 sm:pb-20 lg:pb-28 relative z-20"
+        style={{ opacity }}
+      >
+        <div className="pt-24 sm:pt-32 lg:pt-36 mb-12 sm:mb-20" />
+
+        <div className="max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            className="mb-4 flex items-center gap-3"
+          >
+            <span className="inline-block w-2 h-2 rounded-full" style={{ background: 'var(--accent)' }} />
+            <span className="text-sm" style={{ color: 'var(--gray-3)' }}>
+              Software Engineer & UI/UX Designer
+            </span>
+          </motion.div>
+
+          <motion.div style={{ y: y1 }}>
+            <motion.h1
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+              className="font-serif italic leading-[0.88] tracking-[-0.03em]"
+              style={{ fontSize: 'clamp(3rem, 10vw, 8rem)', color: 'var(--ink)' }}
+            >
+              Ivander
+            </motion.h1>
+            <motion.h1
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.45 }}
+              className="leading-[0.88] tracking-[-0.04em] font-light"
+              style={{ fontSize: 'clamp(3rem, 10vw, 8rem)', color: 'var(--ink)' }}
+            >
+              Daniel<span style={{ color: 'var(--accent)' }}>.</span>
+            </motion.h1>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="mt-8 text-sm sm:text-base leading-relaxed max-w-md"
+            style={{ color: 'var(--gray-2)' }}
+          >
+            Crafting intuitive interfaces through thoughtful design
+            and clean code — passionate about building digital 
+            experiences that feel natural and considered.
+          </motion.p>
+        </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.3, duration: 0.8 }}
+          className="mt-14 sm:mt-20"
+        >
+          <a href="#works" className="flex items-center gap-3 group">
+            <span className="text-sm" style={{ color: 'var(--gray-3)' }}>
+              Scroll to explore
+            </span>
+            <motion.span
+              className="text-lg"
+              style={{ color: 'var(--accent)' }}
+              animate={{ y: [0, 5, 0] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              ↓
+            </motion.span>
+          </a>
+        </motion.div>
       </motion.div>
+
+      {/* Bottom border */}
+      <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: 'var(--gray-5)' }} />
     </section>
   );
 };
 
 export default Hero;
+

@@ -1,53 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
-
-/* Design System - Dark Apple-inspired with warm amber accents */
+/* ============================================
+   EDITORIAL MINIMALIST PORTFOLIO
+   Organic · Typographic · Warm
+   ============================================ */
 
 @layer base {
   :root {
-    --background: 0 0% 4%;
-    --foreground: 45 10% 96%;
+    --ink: #1a1a1a;
+    --paper: #f6f3ee;
+    --paper-warm: #ede8df;
+    --accent: #c85a3a;
+    --accent-muted: rgba(200, 90, 58, 0.15);
+    --gray-1: #2a2a2a;
+    --gray-2: #4a4a4a;
+    --gray-3: #7a7a7a;
+    --gray-4: #b0b0b0;
+    --gray-5: #d8d4ce;
 
-    --card: 0 0% 7%;
-    --card-foreground: 45 10% 96%;
-
-    --popover: 0 0% 8%;
-    --popover-foreground: 45 10% 96%;
-
-    --primary: 38 90% 55%;
-    --primary-foreground: 0 0% 4%;
-
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 45 10% 85%;
-
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 55%;
-
-    --accent: 38 80% 50%;
-    --accent-foreground: 0 0% 4%;
-
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+    --card: 40 20% 96%;
+    --card-foreground: 0 0% 10%;
+    --primary: 15 55% 50%;
+    --primary-foreground: 40 30% 95%;
+    --secondary: 40 10% 92%;
+    --secondary-foreground: 0 0% 20%;
+    --muted: 40 8% 90%;
+    --muted-foreground: 0 0% 48%;
+    --accent: 15 55% 50%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 38 90% 55%;
-
-    --radius: 1rem;
-
-    /* Custom tokens */
-    --glass-bg: 0 0% 10% / 0.6;
-    --glass-border: 0 0% 100% / 0.08;
-    --gradient-subtle: linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(0 0% 5%) 100%);
-    --gradient-radial: radial-gradient(ellipse at top right, hsl(38 90% 55% / 0.08) 0%, transparent 50%);
-    --gradient-hero: radial-gradient(ellipse at 80% 20%, hsl(38 90% 55% / 0.12) 0%, transparent 40%), 
-                     radial-gradient(ellipse at 20% 80%, hsl(220 60% 50% / 0.06) 0%, transparent 40%);
-    --shadow-glass: 0 8px 32px hsl(0 0% 0% / 0.4);
-    --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.3);
-    --shadow-glow: 0 0 60px hsl(38 90% 55% / 0.15);
+    --border: 40 10% 85%;
+    --input: 40 10% 85%;
+    --ring: 15 55% 50%;
+    --radius: 0px;
   }
 }
 
@@ -62,160 +54,254 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
+    @apply antialiased;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
     overflow-x: hidden;
     min-height: 100dvh;
+    background: var(--paper);
+    color: var(--ink);
+    cursor: default;
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
   }
 
   ::selection {
-    background: hsl(38 90% 55% / 0.3);
-    color: hsl(45 10% 96%);
+    background: var(--accent);
+    color: var(--paper);
   }
 }
 
-@layer components {
-  .glass-card {
-    /* Optimized for mobile: higher opacity, lower blur */
-    @apply bg-card/80 backdrop-blur-md border border-white/[0.08] rounded-2xl;
-    
-    /* Desktop: restore original glass effect */
-    @apply md:bg-card/60 md:backdrop-blur-xl;
-    
-    box-shadow: var(--shadow-glass);
-  }
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
 
-  .glass-card-hover {
-    @apply glass-card transition-all duration-500 ease-out;
-  }
-
-  .glass-card-hover:hover {
-    @apply bg-card/80 border-white/[0.12];
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: var(--shadow-card), var(--shadow-glow);
-  }
-
-  @media (hover: none) {
-    .glass-card-hover:hover {
-      transform: none;
-    }
-  }
-
-  .text-gradient {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(45 10% 96%) 0%, hsl(38 90% 55%) 100%);
-  }
-
-  .text-gradient-subtle {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(180deg, hsl(45 10% 96%) 0%, hsl(0 0% 60%) 100%);
-  }
-
-  .hero-gradient-bg {
-    background: var(--gradient-hero);
-  }
-
-  .section-gradient {
-    background: var(--gradient-radial);
-  }
-
-  .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 bg-primary text-primary-foreground font-medium rounded-xl transition-all duration-300 ease-out;
-    min-height: 48px; /* Better touch target */
-  }
-
-  .btn-primary:hover {
-    @apply bg-primary/90;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px hsl(38 90% 55% / 0.25);
-  }
-
-  @media (hover: none) {
-    .btn-primary:hover {
-      transform: none;
-    }
-    .btn-primary:active {
-      @apply bg-primary/80;
-    }
-  }
-
-  .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 bg-transparent border border-white/20 text-foreground font-medium rounded-xl transition-all duration-300 ease-out;
-    min-height: 48px;
-  }
-
-  .btn-secondary:hover {
-    @apply bg-white/5 border-white/30;
-  }
-
-  @media (hover: none) {
-    .btn-secondary:active {
-      @apply bg-white/10;
-    }
-  }
-
-  .heading-display {
-    font-family: 'Playfair Display', Georgia, serif;
-    @apply font-semibold tracking-tight;
-  }
-
-  .filter-tab {
-    @apply px-4 py-2.5 sm:px-5 text-sm font-medium text-muted-foreground rounded-full transition-all duration-300 cursor-pointer;
-    min-height: 44px;
-  }
-
-  .filter-tab:hover {
-    @apply text-foreground bg-white/5;
-  }
-
-  .filter-tab-active {
-    @apply bg-primary text-primary-foreground;
-  }
-
-  .nav-link {
-    @apply relative text-sm font-medium text-muted-foreground transition-colors duration-300;
-  }
-
-  .nav-link:hover {
-    @apply text-foreground;
-  }
-
-  .nav-link::after {
-    content: '';
-    @apply absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300;
-  }
-
-  .nav-link:hover::after {
-    @apply w-full;
-  }
-
-  /* Mobile-first form input styles */
-  .form-input {
-    @apply w-full px-4 py-3 bg-muted/50 border border-white/10 rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all;
-    min-height: 48px;
-    font-size: 16px; /* Prevents zoom on iOS */
-  }
+.font-serif {
+  font-family: 'Instrument Serif', Georgia, serif;
 }
 
-@layer utilities {
-  .animation-delay-100 {
-    animation-delay: 100ms;
-  }
-  .animation-delay-200 {
-    animation-delay: 200ms;
-  }
-  .animation-delay-300 {
-    animation-delay: 300ms;
-  }
-  .animation-delay-400 {
-    animation-delay: 400ms;
-  }
+.font-mono {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
 
-  /* Safe area insets for notched devices */
-  .safe-area-inset-top {
-    padding-top: env(safe-area-inset-top);
-  }
-  .safe-area-inset-bottom {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
+/* ============================================
+   GRAIN TEXTURE — subtle paper feel
+   ============================================ */
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  mix-blend-mode: multiply;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gray-4);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ============================================
+   PROJECT CARD
+   ============================================ */
+
+.project-card {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+}
+
+.project-card img {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.6s ease;
+}
+
+.project-card:hover img {
+  transform: scale(1.06);
+}
+
+/* ============================================
+   TAG PILL
+   ============================================ */
+
+.tag-pill {
+  display: inline-block;
+  padding: 4px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--gray-5);
+  color: var(--gray-3);
+  border-radius: 100px;
+  transition: all 0.3s ease;
+}
+
+.tag-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ============================================
+   ACCENT LINE
+   ============================================ */
+
+.rule {
+  border: none;
+  height: 1px;
+  background: var(--gray-5);
+}
+
+.rule-accent {
+  height: 2px;
+  background: var(--accent);
+  width: 32px;
+  border-radius: 2px;
+}
+
+/* ============================================
+   CONTACT FORM INPUTS
+   ============================================ */
+
+.form-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--gray-5);
+  color: var(--ink);
+  padding: 16px 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.4s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  border-bottom-color: var(--accent);
+}
+
+.form-input::placeholder {
+  color: var(--gray-4);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes expandWidth {
+  from { width: 0; }
+  to { width: 32px; }
+}
+
+/* ============================================
+   LINK UNDERLINE
+   ============================================ */
+
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* ============================================
+   SAFE AREA
+   ============================================ */
+
+.safe-area-inset-top {
+  padding-top: env(safe-area-inset-top);
+}
+.safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ============================================
+   CATEGORY FILTER — pill style
+   ============================================ */
+
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  color: var(--gray-3);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 100px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.filter-btn:hover {
+  color: var(--ink);
+  background: var(--paper-warm);
+}
+
+.filter-btn.active {
+  color: var(--ink);
+  background: var(--paper-warm);
+  border-color: var(--gray-5);
+}
+
+/* Hide scrollbar on filter bar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ============================================
+   SKILL BARS
+   ============================================ */
+
+.skill-bar-track {
+  height: 3px;
+  background: var(--gray-5);
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  background: var(--ink);
+  transform-origin: left;
 }

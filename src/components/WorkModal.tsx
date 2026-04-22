@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Github } from 'lucide-react';
 import { Work } from './WorkCard';
 
 interface WorkModalProps {
@@ -10,32 +9,20 @@ interface WorkModalProps {
 }
 
 const WorkModal = ({ work, isOpen, onClose }: WorkModalProps) => {
-  // Prevent body scroll when modal is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
-  // Close on escape key
   useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    if (isOpen) {
-      window.addEventListener('keydown', handleEscape);
-    }
+    const handleEscape = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    if (isOpen) window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose]);
 
   if (!work) return null;
 
-  const categoryLabel = work.category === 'web' ? 'Web Development' : work.category === 'uiux' ? 'UI/UX Design' : 'Graphic Design';
+  const catLabel = work.category === 'web' ? 'Web' : work.category === 'uiux' ? 'UI/UX' : work.category === 'program' ? 'Program' : 'Design';
 
   return (
     <AnimatePresence>
@@ -46,40 +33,44 @@ const WorkModal = ({ work, isOpen, onClose }: WorkModalProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
             onClick={onClose}
-            className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50"
+            style={{ background: 'rgba(26, 26, 26, 0.8)', backdropFilter: 'blur(12px)' }}
           />
 
           {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-2 sm:inset-4 md:inset-8 lg:inset-16 xl:inset-20 z-50 glass-card overflow-hidden flex flex-col safe-area-inset-bottom"
+            initial={{ opacity: 0, y: 40, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 40, scale: 0.98 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-4 sm:inset-8 md:inset-12 lg:inset-y-12 lg:inset-x-24 z-50 overflow-hidden flex flex-col rounded-2xl"
+            style={{ background: 'var(--paper)' }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-3 sm:p-4 md:p-6 border-b border-white/10">
+            <div className="flex items-center justify-between px-6 sm:px-8 py-4 border-b" style={{ borderColor: 'var(--gray-5)' }}>
               <div className="flex items-center gap-3">
-                <span className="px-2.5 py-1 sm:px-3 text-xs font-medium bg-primary/10 text-primary rounded-full">
-                  {categoryLabel}
+                <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ background: 'var(--accent)' }} />
+                <span className="font-mono text-[0.65rem] uppercase tracking-[0.15em]" style={{ color: 'var(--gray-3)' }}>
+                  {catLabel}
                 </span>
               </div>
-              <button
+              <motion.button
                 onClick={onClose}
-                className="w-10 h-10 sm:w-10 sm:h-10 rounded-full bg-muted/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors touch-manipulation"
-                aria-label="Close modal"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="w-8 h-8 flex items-center justify-center rounded-full text-sm"
+                style={{ color: 'var(--gray-3)', background: 'var(--paper-warm)' }}
               >
-                <X size={20} />
-              </button>
+                ✕
+              </motion.button>
             </div>
 
             {/* Content */}
-            <div className="flex-1 overflow-y-auto overscroll-contain p-3 sm:p-4 md:p-6 lg:p-8">
-              <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+            <div className="flex-1 overflow-y-auto p-6 sm:p-8 lg:p-12">
+              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
                 {/* Image */}
-                <div className="rounded-xl sm:rounded-2xl overflow-hidden bg-muted/30">
+                <div className="overflow-hidden rounded-xl" style={{ background: 'var(--paper-warm)' }}>
                   <img
                     src={work.image}
                     alt={work.title}
@@ -88,42 +79,46 @@ const WorkModal = ({ work, isOpen, onClose }: WorkModalProps) => {
                 </div>
 
                 {/* Details */}
-                <div className="space-y-4 sm:space-y-6">
+                <div className="flex flex-col justify-center space-y-8">
                   <div>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-semibold text-foreground mb-2 sm:mb-3">
+                    <h2
+                      className="text-2xl sm:text-3xl lg:text-4xl font-medium mb-4"
+                      style={{ color: 'var(--ink)', letterSpacing: '-0.02em', lineHeight: 1.15 }}
+                    >
                       {work.title}
                     </h2>
-                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--gray-2)' }}>
                       {work.description}
                     </p>
                   </div>
 
-                  {/* Tags */}
                   <div>
-                    <h4 className="text-sm font-medium text-foreground mb-2 sm:mb-3">Tags</h4>
+                    <h4 className="font-mono text-[0.65rem] uppercase tracking-[0.15em] mb-3" style={{ color: 'var(--gray-3)' }}>
+                      Technologies
+                    </h4>
                     <div className="flex flex-wrap gap-2">
                       {work.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2.5 py-1.5 sm:px-3 text-xs sm:text-sm bg-muted/50 text-foreground/80 rounded-lg border border-white/5"
-                        >
-                          {tag}
-                        </span>
+                        <span key={tag} className="tag-pill rounded-full">{tag}</span>
                       ))}
                     </div>
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex flex-col sm:flex-row gap-3 pt-2 sm:pt-4">
+                  <div className="flex flex-col sm:flex-row gap-3 pt-4">
                     {work.projectUrl && (
                       <a
                         href={work.projectUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-primary flex-1 sm:flex-none justify-center inline-flex items-center gap-2"
+                        className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm rounded-full transition-all duration-300 hover:translate-y-[-2px]"
+                        style={{
+                          background: 'var(--ink)',
+                          color: 'var(--paper)',
+                        }}
                       >
-                        <ExternalLink size={18} />
                         View Project
+                        <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+                          <path d="M1 13L13 1M13 1H4M13 1V10" />
+                        </svg>
                       </a>
                     )}
                     {work.sourceUrl && (
@@ -131,10 +126,16 @@ const WorkModal = ({ work, isOpen, onClose }: WorkModalProps) => {
                         href={work.sourceUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-secondary flex-1 sm:flex-none justify-center inline-flex items-center gap-2"
+                        className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm border rounded-full transition-all duration-300 hover:translate-y-[-2px]"
+                        style={{
+                          borderColor: 'var(--gray-5)',
+                          color: 'var(--ink)',
+                        }}
                       >
-                        <Github size={18} />
                         Source Code
+                        <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+                          <path d="M1 13L13 1M13 1H4M13 1V10" />
+                        </svg>
                       </a>
                     )}
                   </div>

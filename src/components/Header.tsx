@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
 
 const navItems = [
-  { label: 'Works', href: '#works' },
+  { label: 'Work', href: '#works' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -13,59 +12,82 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
   }, [isMobileMenuOpen]);
 
   return (
     <motion.header
-      initial={{ y: -20, opacity: 0 }}
+      initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 safe-area-inset-top ${
-        isScrolled ? 'glass-card border-0 border-b border-white/[0.06]' : ''
-      }`}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-0 left-0 right-0 z-50 safe-area-inset-top"
+      style={{
+        background: isScrolled ? 'rgba(246, 243, 238, 0.92)' : 'transparent',
+        backdropFilter: isScrolled ? 'blur(12px)' : 'none',
+        transition: 'all 0.5s ease',
+      }}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+      <div className="px-6 sm:px-8 lg:px-12 xl:px-16">
         <nav className="flex items-center justify-between h-16 sm:h-20">
-          <a href="#" className="text-lg font-semibold tracking-tight text-foreground">
-            ID<span className="text-primary">.</span>
+          {/* Logo */}
+          <a href="#" className="relative group">
+            <span
+              className="font-serif text-2xl sm:text-3xl italic"
+              style={{ color: 'var(--ink)', letterSpacing: '-0.02em' }}
+            >
+              Portofolio
+            </span>
+            <span
+              className="absolute -top-1 -right-3 w-1.5 h-1.5 rounded-full"
+              style={{ background: 'var(--accent)' }}
+            />
           </a>
 
-          {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-8 lg:gap-10">
-            {navItems.map((item) => (
-              <li key={item.label}>
-                <a href={item.href} className="nav-link">
+          {/* Desktop Nav */}
+          <ul className="hidden md:flex items-center gap-10">
+            {navItems.map((item, i) => (
+              <motion.li
+                key={item.label}
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <a
+                  href={item.href}
+                  className="link-underline text-sm"
+                  style={{ color: 'var(--gray-2)' }}
+                >
                   {item.label}
                 </a>
-              </li>
+              </motion.li>
             ))}
           </ul>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile menu button */}
           <button
-            className="md:hidden p-3 -mr-2 text-foreground touch-manipulation"
+            className="md:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-            aria-expanded={isMobileMenuOpen}
+            aria-label="Menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <motion.span
+              className="block w-5 h-[1.5px]"
+              style={{ background: 'var(--ink)' }}
+              animate={isMobileMenuOpen ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.span
+              className="block w-5 h-[1.5px]"
+              style={{ background: 'var(--ink)' }}
+              animate={isMobileMenuOpen ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.3 }}
+            />
           </button>
         </nav>
       </div>
@@ -74,25 +96,45 @@ const Header = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden glass-card border-0 border-t border-white/[0.06]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+            className="fixed inset-0 z-40 flex flex-col items-start justify-center px-10"
+            style={{ background: 'var(--paper)' }}
           >
-            <ul className="flex flex-col py-4 px-4 sm:px-6 gap-1 safe-area-inset-bottom">
-              {navItems.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    className="block py-4 px-2 text-lg text-foreground active:bg-white/5 rounded-lg transition-colors touch-manipulation"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
+            <div className="space-y-6">
+              {navItems.map((item, i) => (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  initial={{ x: -30, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: -30, opacity: 0 }}
+                  transition={{ delay: 0.08 + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                  className="block"
+                >
+                  <span className="font-serif italic text-4xl" style={{ color: 'var(--ink)' }}>
                     {item.label}
-                  </a>
-                </li>
+                  </span>
+                </motion.a>
               ))}
-            </ul>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="absolute bottom-10 left-10 flex items-center gap-5"
+            >
+              <a href="mailto:ivanderdaniel79@gmail.com"
+                className="font-mono text-xs" style={{ color: 'var(--gray-4)' }}>Email</a>
+              <a href="https://github.com/Svann70" target="_blank" rel="noopener noreferrer"
+                className="font-mono text-xs" style={{ color: 'var(--gray-4)' }}>Github</a>
+              <a href="https://www.linkedin.com/in/ivander-daniel-napitupulu-04a465275/" target="_blank" rel="noopener noreferrer"
+                className="font-mono text-xs" style={{ color: 'var(--gray-4)' }}>LinkedIn</a>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

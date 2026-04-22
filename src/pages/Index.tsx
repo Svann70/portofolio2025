@@ -7,15 +7,18 @@ import Footer from '@/components/Footer';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ background: 'var(--paper)' }}>
       <Header />
-      <main>
-        <Hero />
-        <WorksSection />
-        <About />
-        <Contact />
-      </main>
-      <Footer />
+
+      <div>
+        <main>
+          <Hero />
+          <WorksSection />
+          <About />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 };
