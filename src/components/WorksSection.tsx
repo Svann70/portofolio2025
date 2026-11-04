@@ -4,9 +4,8 @@ import { Work } from './WorkCard';
 import WorkModal from './WorkModal';
 
 const categories = [
-  { id: 'web', label: 'Web' },
+  { id: 'web', label: 'Web/App' },
   { id: 'uiux', label: 'UI/UX' },
-  { id: 'program', label: 'Program' },
   { id: 'design', label: 'Design' }
 ];
 
@@ -18,7 +17,7 @@ const works: Work[] = [
     projectUrl: 'https://chat.tokengateway.dev',
   },
   {
-    id: '0b', title: 'FlashLingo', category: 'program',
+    id: '0b', title: 'FlashLingo', category: 'web',
     description: 'Offline-first language learning app awarded an international project grant at Airlangga Undergraduate Summer (AUS) 2026, National University of Singapore — embedded local database, spaced repetition, zero-latency offline reviews.',
     image: '/flashlingo.svg', tags: ['Offline-First', 'Mobile', 'Local DB', 'UX'],
   },
@@ -33,18 +32,13 @@ const works: Work[] = [
     image: '/silatipe.svg', tags: ['Figma', 'Redesign', 'Wireframes', 'Design System'],
   },
   {
-    id: '1', title: 'University Student Portal System', category: 'program',
-    description: 'A console-based Student Academic Portal developed in Python to handle student records, course registration, and grade management.',
-    image: '/portal.png', tags: ['Python'], featured: true,
-  },
-  {
     id: '2', title: 'PenDuduk App UI', category: 'uiux',
     description: 'UI/UX design for PenDuduk — an app providing accessible parklet rest areas for commuters at bus stops and train stations. Awarded Best Collaboration Project, Ekonomi Kreatif Design Festival 2025.',
     image: '/Penduduk.png', tags: ['Figma', 'Prototyping', 'User Research'],
     projectUrl: 'https://www.figma.com/proto/ZoePSnuT2KB25jErA829Wo/PenDuduk?node-id=623-3142&p=f&t=z4Yz2fimmUOGEbg7-1&scaling=scale-down&content-scaling=fixed&page-id=12%3A4&starting-point-node-id=1007%3A6978',
   },
   {
-    id: '3', title: 'Library Book Borrowing System', category: 'program',
+    id: '3', title: 'Library Book Borrowing System', category: 'web',
     description: 'A web-based library management system built with PHP and MySQL to manage book inventory, borrowing transactions, and return records.',
     image: '/peminjam.jpg', tags: ['PHP', 'MySQL', 'HTML', 'CSS'],
   },
@@ -71,11 +65,6 @@ const works: Work[] = [
     id: '7', title: 'Simple Data Input Form', category: 'web',
     description: 'A basic HTML form project for collecting user input data with a clean and structured layout.',
     image: '/form.png', tags: ['HTML'],
-  },
-  {
-    id: '8', title: 'Village Blood Donor Data System', category: 'program',
-    description: 'A C++ program designed to manage and record blood donor data at the village level.',
-    image: '/donor.png', tags: ['C++'],
   },
   {
     id: '9', title: 'Othello Board Game AI', category: 'web',
@@ -207,7 +196,7 @@ const WorksSection = () => {
                           style={{ background: 'var(--accent)' }}
                         />
                         <span className="font-mono text-[0.6rem] uppercase tracking-[0.12em]" style={{ color: 'var(--gray-3)' }}>
-                          {work.category === 'uiux' ? 'UI/UX' : work.category}
+                          {work.category === 'uiux' ? 'UI/UX' : work.category === 'web' ? 'Web/App' : 'Design'}
                         </span>
                       </div>
 

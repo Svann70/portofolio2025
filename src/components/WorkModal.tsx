@@ -22,7 +22,7 @@ const WorkModal = ({ work, isOpen, onClose }: WorkModalProps) => {
 
   if (!work) return null;
 
-  const catLabel = work.category === 'web' ? 'Web' : work.category === 'uiux' ? 'UI/UX' : work.category === 'program' ? 'Program' : 'Design';
+  const catLabel = work.category === 'web' ? 'Web/App' : work.category === 'uiux' ? 'UI/UX' : 'Design';
 
   return (
     <AnimatePresence>
