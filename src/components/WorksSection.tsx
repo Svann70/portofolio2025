@@ -19,7 +19,7 @@ const works: Work[] = [
   {
     id: '0b', title: 'FlashLingo', category: 'web',
     description: 'Offline-first language learning app awarded an international project grant at Airlangga Undergraduate Summer (AUS) 2026, National University of Singapore — embedded local database, spaced repetition, zero-latency offline reviews.',
-    image: '/flashlingo.svg', tags: ['Offline-First', 'Mobile', 'Local DB', 'UX'],
+    image: '/flashlingo.jpg', tags: ['Offline-First', 'Mobile', 'Local DB', 'UX'],
   },
   {
     id: '0c', title: 'Satu Cakrawala', category: 'uiux',
