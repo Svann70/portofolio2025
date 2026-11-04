@@ -12,14 +12,34 @@ const categories = [
 
 const works: Work[] = [
   {
+    id: '0a', title: 'chat.tokengateway.dev', category: 'web',
+    description: 'Consumer AI chat web app for TokenGateway — Next.js frontend, Go backend with Chi router, SSE reverse-proxy streaming and point-based wallet integration.',
+    image: '/tokengateway.svg', tags: ['Next.js', 'Go', 'SSE', 'Product'],
+    projectUrl: 'https://chat.tokengateway.dev',
+  },
+  {
+    id: '0b', title: 'FlashLingo', category: 'program',
+    description: 'Offline-first language learning app awarded an international project grant at Airlangga Undergraduate Summer (AUS) 2026, National University of Singapore — embedded local database, spaced repetition, zero-latency offline reviews.',
+    image: '/flashlingo.svg', tags: ['Offline-First', 'Mobile', 'Local DB', 'UX'],
+  },
+  {
+    id: '0c', title: 'Satu Cakrawala', category: 'uiux',
+    description: 'End-to-end product design for an academic operations platform — timetable, room and lecturer allocation. AI-augmented code prototypes for rapid usability validation.',
+    image: '/satucakrawala.svg', tags: ['Figma', 'Product Design', 'Prototyping', 'UX Research'],
+  },
+  {
+    id: '0d', title: 'SILATIPE — Website Redesign', category: 'uiux',
+    description: 'UI/UX internship project at PPKD Jakarta Selatan: rebuild of the SILATIPE site with simplified navigation, consistent components, typography and spacing.',
+    image: '/silatipe.svg', tags: ['Figma', 'Redesign', 'Wireframes', 'Design System'],
+  },
+  {
     id: '1', title: 'University Student Portal System', category: 'program',
     description: 'A console-based Student Academic Portal developed in Python to handle student records, course registration, and grade management.',
     image: '/portal.png', tags: ['Python'], featured: true,
-    sourceUrl: 'https://github.com/username/student-portal',
   },
   {
     id: '2', title: 'PenDuduk App UI', category: 'uiux',
-    description: 'Comprehensive UI/UX design for a mobile banking application, focusing on intuitive navigation and secure user experience.',
+    description: 'UI/UX design for PenDuduk — an app providing accessible parklet rest areas for commuters at bus stops and train stations. Awarded Best Collaboration Project, Ekonomi Kreatif Design Festival 2025.',
     image: '/Penduduk.png', tags: ['Figma', 'Prototyping', 'User Research'],
     projectUrl: 'https://www.figma.com/proto/ZoePSnuT2KB25jErA829Wo/PenDuduk?node-id=623-3142&p=f&t=z4Yz2fimmUOGEbg7-1&scaling=scale-down&content-scaling=fixed&page-id=12%3A4&starting-point-node-id=1007%3A6978',
   },
@@ -43,7 +63,7 @@ const works: Work[] = [
   },
   {
     id: '6', title: 'Path App UI/UX Prototype', category: 'uiux',
-    description: 'AI-powered educational app designed to personalize learning paths for students.',
+    description: 'AI-assisted career guidance platform — user flows, wireframes and high-fidelity Figma prototypes improving usability clarity for students. 2nd Place, UI/UX Competition Cakrawala Arena.',
     image: '/Path.png', tags: ['Figma', 'Prototyping', 'Education App'],
     projectUrl: 'https://www.figma.com/proto/bNpjBBjmJbx4MOSC5wQMwS/UI-UX-Jual-Beli-Musang?node-id=115-169&p=f&t=GDnA6mn06kAexjb1-1&scaling=min-zoom&content-scaling=fixed&page-id=107%3A242&starting-point-node-id=123%3A27',
   },
@@ -85,7 +105,7 @@ const works: Work[] = [
 
 
 const WorksSection = () => {
-  const [activeCategory, setActiveCategory] = useState('web');
+  const [activeCategory, setActiveCategory] = useState('');
   const [selectedWork, setSelectedWork] = useState<Work | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

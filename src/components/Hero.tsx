@@ -303,7 +303,7 @@ const Hero = () => {
           >
             <span className="inline-block w-2 h-2 rounded-full" style={{ background: 'var(--accent)' }} />
             <span className="text-sm" style={{ color: 'var(--gray-3)' }}>
-              Software Engineer & UI/UX Designer
+              Software Engineer &amp; UI/UX Designer
             </span>
           </motion.div>
 
@@ -336,7 +336,8 @@ const Hero = () => {
             style={{ color: 'var(--gray-2)' }}
           >
             Crafting intuitive interfaces through thoughtful design
-            and clean code — passionate about building digital 
+            and clean code — Computer Science student (GPA 3.96) working
+            across Next.js, Go, and PostgreSQL, building digital
             experiences that feel natural and considered.
           </motion.p>
         </div>

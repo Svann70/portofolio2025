@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+  <rect width="1200" height="750" fill="#e8e4db"/>
+  <rect x="80" y="90" width="1040" height="70" fill="#dcd7cd"/>
+  <rect x="80" y="190" width="640" height="470" fill="#f2efe8"/>
+  <rect x="750" y="190" width="370" height="220" fill="#dcd7cd"/>
+  <rect x="750" y="440" width="370" height="220" fill="#f2efe8"/>
+  <circle cx="130" cy="125" r="8" fill="#c85a3a"/>
+  <text x="170" y="133" font-family="monospace" font-size="20" letter-spacing="3" fill="#5a5a5a">SILATIPE</text>
+  <text x="110" y="700" font-family="Georgia,serif" font-style="italic" font-size="56" fill="#1a1a1a">Website Redesign</text>
+</svg>

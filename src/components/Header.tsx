@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
   { label: 'Work', href: '#works' },
+  { label: 'Experience', href: '#experience' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -42,7 +43,7 @@ const Header = () => {
               className="font-serif text-2xl sm:text-3xl italic"
               style={{ color: 'var(--ink)', letterSpacing: '-0.02em' }}
             >
-              Portofolio
+              Portfolio
             </span>
             <span
               className="absolute -top-1 -right-3 w-1.5 h-1.5 rounded-full"

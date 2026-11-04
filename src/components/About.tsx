@@ -1,20 +1,31 @@
 import { motion } from 'framer-motion';
 
+const skills = {
+  'Technical': ['Python', 'Go', 'JavaScript', 'Next.js', 'React', 'HTML/CSS', 'C++', 'MySQL', 'PostgreSQL', 'Git', 'Microsoft Excel'],
+  'AI & Tools': ['Hermes Agent', 'Autonomous AI Coding Agents', 'LLM APIs (OpenAI & Anthropic)', 'Figma', 'VSCode', 'Adobe Photoshop', 'Microsoft Office'],
+  'Soft': ['Teamwork', 'Communication', 'Time Management', 'Problem Solving', 'Critical Thinking', 'Creativity'],
+  'Languages': ['Indonesian (Native)', 'English (Intermediate)'],
+};
 
-
-const tools = [
-  { name: 'PHP', note: 'Backend' },
-  { name: 'MySQL', note: 'Database' },
-  { name: 'Python', note: 'Scripting' },
-  { name: 'HTML/CSS', note: 'Markup' },
-  { name: 'JavaScript', note: 'Frontend' },
-  { name: 'React', note: 'Framework' },
-  { name: 'Figma', note: 'Design' },
-  { name: 'Photoshop', note: 'Editing' },
-  { name: 'Illustrator', note: 'Vector' },
+const stats = [
+  { label: 'GPA', value: '3.96' },
+  { label: 'Projects', value: '10+' },
+  { label: 'Semester', value: '3rd' },
+  { label: 'Focus', value: 'UI/UX' },
 ];
 
-
+const education = [
+  {
+    school: 'Universitas Cakrawala',
+    place: 'Jakarta, Indonesia',
+    detail: 'B.Sc. Computer Science — 3rd Semester · GPA 3.96 / 4.00 (Semesters 1–2)',
+  },
+  {
+    school: 'SMAN 4 Depok',
+    place: 'Depok, Indonesia',
+    detail: '2022 — 2025 · Majors: IPA · Ranked Top 10 in the Science (IPA) SNBP Eligibility List',
+  },
+];
 
 const About = () => {
   return (
@@ -69,48 +80,51 @@ const About = () => {
                 <div className="flex items-center gap-2 mb-4">
                   <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ background: 'var(--accent)' }} />
                   <p className="font-mono text-xs" style={{ color: 'var(--accent)' }}>
-                    Software Engineer & UI/UX Designer
+                    Software Engineer &amp; UI/UX Designer
                   </p>
                 </div>
                 <p className="text-sm leading-relaxed" style={{ color: 'var(--gray-2)' }}>
-                  A junior software engineer with a strong interest in
-                  web development, user interface design, and
-                  educational technology. I enjoy learning new technologies,
-                  improving code quality, and creating applications that are
-                  not only functional but also easy to use and visually
-                  well-structured.
+                  Curious and fast-learning Computer Science student with a dual
+                  focus on software engineering and UI/UX design. Hands-on
+                  experience building web applications with Next.js, Go, React,
+                  JavaScript, Python, PostgreSQL, and MySQL — with active
+                  adoption of autonomous AI agents in daily engineering
+                  workflows. A track record spanning full-stack AI applications,
+                  technical marketing, freelance web development, student
+                  leadership, and international grant-awarded software projects.
                 </p>
               </div>
             </div>
 
             {/* Education */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="border-l-2 pl-6"
-              style={{ borderColor: 'var(--accent)' }}
-            >
+            <div>
               <span className="font-mono text-[0.65rem] uppercase tracking-[0.15em]" style={{ color: 'var(--gray-3)' }}>
                 Education
               </span>
-              <h4 className="text-lg font-medium mt-2 mb-1" style={{ color: 'var(--ink)' }}>
-                Cakrawala University
-              </h4>
-              <p className="text-sm" style={{ color: 'var(--gray-3)' }}>
-                Computer Science — Software Engineering & UI/UX Design focus
-              </p>
-            </motion.div>
+              <div className="space-y-6 mt-4">
+                {education.map((e, i) => (
+                  <motion.div
+                    key={e.school}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 * i }}
+                    className="border-l-2 pl-6"
+                    style={{ borderColor: 'var(--accent)' }}
+                  >
+                    <h4 className="text-lg font-medium mb-1" style={{ color: 'var(--ink)' }}>
+                      {e.school}
+                    </h4>
+                    <p className="text-sm mb-1" style={{ color: 'var(--gray-3)' }}>{e.place}</p>
+                    <p className="text-sm" style={{ color: 'var(--gray-3)' }}>{e.detail}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
 
             {/* Stats */}
             <div className="flex flex-wrap gap-3">
-              {[
-                { label: 'Projects', value: '10+' },
-                { label: 'Years', value: '1+' },
-                { label: 'Skills', value: '9+' },
-                { label: 'Focus', value: 'UI/UX' },
-              ].map((stat, i) => (
+              {stats.map((stat, i) => (
                 <motion.div
                   key={stat.label}
                   initial={{ opacity: 0, y: 10 }}
@@ -140,31 +154,32 @@ const About = () => {
             className="lg:col-span-5"
             id="skills"
           >
-            <div>
-
-              <h4 className="font-mono text-[0.65rem] uppercase tracking-[0.15em] mt-12 mb-6" style={{ color: 'var(--gray-3)' }}>
-                Toolkit
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {tools.map((t, i) => (
-                  <motion.div
-                    key={t.name}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 + i * 0.03 }}
-                    className="px-4 py-2.5 rounded-xl text-center group cursor-default"
-                    style={{ background: 'var(--paper)' }}
+            <div className="space-y-10">
+              {Object.entries(skills).map(([group, items], gi) => (
+                <div key={group}>
+                  <h4
+                    className="font-mono text-[0.65rem] uppercase tracking-[0.15em] mb-4"
+                    style={{ color: 'var(--gray-3)' }}
                   >
-                    <div className="text-sm font-medium group-hover:text-[var(--accent)] transition-colors duration-300" style={{ color: 'var(--ink)' }}>
-                      {t.name}
-                    </div>
-                    <div className="font-mono text-[0.5rem] mt-0.5" style={{ color: 'var(--gray-4)' }}>
-                      {t.note}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+                    {group}
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {items.map((item, i) => (
+                      <motion.span
+                        key={item}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.05 * gi + i * 0.02 }}
+                        className="px-3.5 py-2 rounded-xl text-xs font-medium cursor-default transition-colors duration-300 hover:text-[var(--accent)]"
+                        style={{ background: 'var(--paper)', color: 'var(--ink)' }}
+                      >
+                        {item}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>

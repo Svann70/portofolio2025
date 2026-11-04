@@ -171,9 +171,22 @@ const Contact = () => {
 
               <div>
                 <span className="font-mono text-[0.65rem] uppercase tracking-[0.15em] block mb-2" style={{ color: 'var(--gray-3)' }}>
+                  Phone
+                </span>
+                <a
+                  href="tel:+6281290679370"
+                  className="link-underline text-sm"
+                  style={{ color: 'var(--ink)' }}
+                >
+                  0812 9067 9370
+                </a>
+              </div>
+
+              <div>
+                <span className="font-mono text-[0.65rem] uppercase tracking-[0.15em] block mb-2" style={{ color: 'var(--gray-3)' }}>
                   Location
                 </span>
-                <span className="text-sm" style={{ color: 'var(--gray-2)' }}>Indonesia</span>
+                <span className="text-sm" style={{ color: 'var(--gray-2)' }}>Depok, West Java, Indonesia</span>
               </div>
 
               <motion.div
