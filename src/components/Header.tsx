@@ -35,7 +35,7 @@ const Header = () => {
         transition: 'all 0.5s ease',
       }}
     >
-      <div className="px-6 sm:px-8 lg:px-12 xl:px-16">
+      <div className="px-6 sm:px-8 lg:px-12 xl:px-16 relative z-50">
         <nav className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <a href="#" className="relative group">
@@ -73,9 +73,10 @@ const Header = () => {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+            className="md:hidden relative z-50 w-10 h-10 flex flex-col items-center justify-center gap-1.5"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Menu"
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
           >
             <motion.span
               className="block w-5 h-[1.5px]"
@@ -109,7 +110,11 @@ const Header = () => {
                 <motion.a
                   key={item.label}
                   href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => {
+                    // release scroll lock before the anchor jump, else the browser can't scroll
+                    document.body.style.overflow = '';
+                    setIsMobileMenuOpen(false);
+                  }}
                   initial={{ x: -30, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: -30, opacity: 0 }}

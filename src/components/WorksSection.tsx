@@ -14,7 +14,7 @@ const works: Work[] = [
     id: '0a', title: 'chat.tokengateway.dev', category: 'web',
     description: 'Consumer AI chat web app for TokenGateway — Next.js frontend, Go backend with Chi router, SSE reverse-proxy streaming and point-based wallet integration.',
     image: '/tokengateway.jpg', tags: ['Next.js', 'Go', 'SSE', 'Product'],
-    projectUrl: 'https://chat.tokengateway.dev',
+    projectUrl: 'https://tokengateway.dev',
   },
   {
     id: '0b', title: 'FlashLingo', category: 'web',
