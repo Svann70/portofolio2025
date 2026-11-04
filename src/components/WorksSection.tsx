@@ -29,7 +29,7 @@ const works: Work[] = [
   {
     id: '0d', title: 'SILATIPE — Website Redesign', category: 'uiux',
     description: 'UI/UX internship project at PPKD Jakarta Selatan: rebuild of the SILATIPE site with simplified navigation, consistent components, typography and spacing.',
-    image: '/silatipe.svg', tags: ['Figma', 'Redesign', 'Wireframes', 'Design System'],
+    image: '/silatipe.jpg', tags: ['Figma', 'Redesign', 'Wireframes', 'Design System'],
   },
   {
     id: '2', title: 'PenDuduk App UI', category: 'uiux',
